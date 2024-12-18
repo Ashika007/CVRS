@@ -1,44 +1,40 @@
 .view-record {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .view-record h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .view-record table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .view-record th,
-  .view-record td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  .view-record th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-  }
-  
-  .view-record button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .view-record button:hover {
-    background-color: #0056b3;
-  }
-  
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.view-record h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.records-table th,
+.records-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.records-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.records-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.records-table tr:hover {
+  background-color: #ddd;
+}
+
+.records-table td {
+  white-space: nowrap;
+}

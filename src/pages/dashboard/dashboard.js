@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import CreateAccount from "./components/createAccount/createAcc.js";
-import ViewRecords from "./components/viewRecord/viewRecord.js";
+import CreateAccount from "../../components/createAccount/createAcc.js";
+import ViewRecords from "../../components/viewRecord/viewRecord.js";
+import UpdateRecord from "../../components/updateAccount/updateAccount.js";
 import "./dashboard.css";
 
 const Dashboard = () => {
@@ -21,17 +22,19 @@ const Dashboard = () => {
           </li>
           <li>
             <button
-              onClick={() => setActiveTab("view")}
               className={activeTab === "view" ? "active" : ""}
+              onClick={() => setActiveTab("view")}
             >
-              View Records
+              View record
             </button>
           </li>
           <li>
-            <button>Update Account</button>
-          </li>
-          <li>
-            <button>Delete Account</button>
+            <button
+              onClick={() => setActiveTab("update")}
+              className={activeTab === "update" ? "active" : ""}
+            >
+              Update Account
+            </button>
           </li>
         </ul>
       </div>
@@ -43,6 +46,7 @@ const Dashboard = () => {
         {/* Form content based on active tab */}
         {activeTab === "create" && <CreateAccount />}
         {activeTab === "view" && <ViewRecords />}
+        {activeTab === "update" && <UpdateRecord />}
       </div>
     </div>
   );
@@ -50,10 +54,10 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-// import React, { useState } from "react";
-// import "./dashboard.css";
-// import CreateAccount from "./components/createAccount/createAcc.js";
-// import ViewRecords from "./components/viewRecord/viewRecord.js";
+// // import React, { useState } from "react";
+// // import "./dashboard.css";
+// // import CreateAccount from "./components/createAccount/createAcc.js";
+// // import ViewRecords from "./components/viewRecord/viewRecord.js";
 
 // const Dashboard = () => {
 //   const [activeTab, setActiveTab] = useState("create");

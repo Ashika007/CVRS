@@ -1,58 +1,60 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Updated to useNavigate
+import { Link } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate(); // Updated to useNavigate
+  const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  const history = useHistory();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setCredentials({ ...credentials, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Example: Hardcoded login check for username and password
-    if (formData.username === "admin" && formData.password === "password") {
-      // Redirect to Dashboard page after successful login
-      history.push("/dashboard");
+    // Replace with your actual authentication logic
+    if (
+      credentials.username === "admin" &&
+      credentials.password === "password"
+    ) {
+      navigate("/dashboard"); // Updated to use navigate
     } else {
-      alert("Invalid username or password!");
+      alert("Invalid credentials. Try again.");
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Login to Child Vaccination Record System</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label>Username:</label>
           <input
             type="text"
-            id="username"
             name="username"
-            value={formData.username}
+            value={credentials.username}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label>Password:</label>
           <input
             type="password"
-            id="password"
             name="password"
-            value={formData.password}
+            value={credentials.password}
             onChange={handleChange}
             required
           />
         </div>
+        {/* <Link hrefLang="/dashboard"> */}
         <button type="submit">Login</button>
+        {/* </Link> */}
       </form>
     </div>
   );

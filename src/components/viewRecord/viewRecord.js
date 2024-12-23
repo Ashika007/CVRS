@@ -3,20 +3,33 @@ import "./viewRecord.css";
 
 const ViewRecords = () => {
   // Dummy records for demonstration; replace with actual backend data fetching logic.
-  // Mock data for demonstration. Replace this with actual data fetched from your backend or state.
   const [records, setRecords] = useState([]);
+  const [selectedChild, setSelectedChild] = useState(null);
 
+  // Dummy vaccine schedule data for child with ID 001
+  const [vaccineRecords, setVaccineRecords] = useState({
+    BCG: ["", "-", "-", "-", "-", "-", "-"],
+    rota: ["-", "", "", "-", "-", "-", "-"],
+    OPV: ["-", "", "", "", "-", "-", "-"],
+    FIPV: ["-", "-", "-", "", "", "-", "-"],
+    PCV: ["-", "", "", "-", "", "-", "-"],
+    DPT: ["-", "", "", "", "-", "-", "-"],
+    measles: ["-", "-", "-", "-", "", "-", ""],
+    JE: ["-", "-", "-", "-", "-", "", "-"],
+    TCV: ["-", "-", "-", "-", "-", "-", ""],
+  });
+
+  // Fetch data for child accounts (replace with your own fetch logic)
   useEffect(() => {
-    // Example: Fetch data from backend (replace this with actual fetch logic).
     const fetchData = async () => {
-      // Simulate fetching data
+      // Mock data - replace with actual API call
       const mockData = [
         {
           childId: "001",
-          name: "Anish Balami",
-          gender: "Male",
-          dob: "2023-01-01",
-          weight: "3.5 gm",
+          name: "Ashika",
+          gender: "Female",
+          dob: "2023-05-05",
+          weight: "3.0 kg",
           motherName: "Sushmita Shrestha",
           fatherName: "Ashika Balami",
           zone: "Gandaki",
@@ -24,10 +37,10 @@ const ViewRecords = () => {
           wardNumber: "12",
           villageTol: "Lakeside",
           phoneNumber: "9876543210",
-          email: "john.doe@example.com",
+          email: "ashika.balami@example.com",
           healthInstitution: "Pokhara Health Center",
           healthWorker: "Dr. Shrestha",
-          doCard: "2023-01-02",
+          doCard: "2023-06-10",
           password: "password123",
         },
       ];
@@ -37,63 +50,76 @@ const ViewRecords = () => {
     fetchData();
   }, []);
 
+  // Handle clicking on a child account
+  const handleSelectChild = (childId) => {
+    // In a real-world scenario, you would fetch the vaccine data for the selected child here
+    if (childId === "001") {
+      setVaccineRecords({
+        BCG: ["", "-", "-", "-", "-", "-", "-"],
+        rota: ["-", "", "", "-", "-", "-", "-"],
+        OPV: ["-", "", "", "", "-", "-", "-"],
+        FIPV: ["-", "-", "-", "", "", "-", "-"],
+        PCV: ["-", "", "", "-", "", "-", "-"],
+        DPT: ["-", "", "", "", "-", "-", "-"],
+        measles: ["-", "-", "-", "-", "", "-", ""],
+        JE: ["-", "-", "-", "-", "-", "", "-"],
+        TCV: ["-", "-", "-", "-", "-", "-", ""],
+      });
+    }
+    setSelectedChild(childId);
+  };
+
   return (
     <div className="view-record">
-      <h2>All Child Records</h2>
-      <table className="records-table">
-        <thead>
-          <tr>
-            <th>Child ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-            <th>Weight</th>
-            <th>Mother's Name</th>
-            <th>Father's Name</th>
-            <th>Zone</th>
-            <th>Nagar/Gaun Palika</th>
-            <th>Ward No.</th>
-            <th>Village/Tol</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Health Institution</th>
-            <th>Health Worker</th>
-            <th>Date of Card</th>
-            <th>Password</th>
-          </tr>
-        </thead>
-        <tbody>
-          {records.length > 0 ? (
-            records.map((record, index) => (
-              <tr key={index}>
-                <td>{record.childId}</td>
-                <td>{record.name}</td>
-                <td>{record.gender}</td>
-                <td>{record.dob}</td>
-                <td>{record.weight}</td>
-                <td>{record.motherName}</td>
-                <td>{record.fatherName}</td>
-                <td>{record.zone}</td>
-                <td>{record.nagarGaunPalika}</td>
-                <td>{record.wardNumber}</td>
-                <td>{record.villageTol}</td>
-                <td>{record.phoneNumber}</td>
-                <td>{record.email}</td>
-                <td>{record.healthInstitution}</td>
-                <td>{record.healthWorker}</td>
-                <td>{record.doCard}</td>
-                <td>{record.password}</td>
+      <h2>Child Accounts</h2>
+      <div className="child-accounts">
+        <h3>Select a Child Account:</h3>
+        <ul>
+          {records.map((record) => (
+            <li key={record.childId}>
+              <button onClick={() => handleSelectChild(record.childId)}>
+                {record.name} (ID: {record.childId})
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Display vaccine records for the selected child */}
+      {selectedChild && (
+        <>
+          <h3>
+            Vaccine Schedule for{" "}
+            {records.find((child) => child.childId === selectedChild).name}
+          </h3>
+          <table className="vaccine-table">
+            <thead>
+              <tr>
+                <th>Vaccines</th>
+                <th>At Birth</th>
+                <th>6 Weeks</th>
+                <th>10 Weeks</th>
+                <th>14 Weeks</th>
+                <th>9 Months</th>
+                <th>12 Months</th>
+                <th>15 Months</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="17" style={{ textAlign: "center" }}>
-                No records available.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {Object.keys(vaccineRecords).map((vaccine, vaccineIndex) => (
+                <tr key={vaccineIndex}>
+                  <td>{vaccine}</td>
+                  {vaccineRecords[vaccine].map((weekValue, weekIndex) => (
+                    <td key={weekIndex}>
+                      <input type="text" value={weekValue} readOnly />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 };

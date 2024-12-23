@@ -1,15 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from "./dashboard"; // Adjust path as per your folder structure
-import Login from "./login.js"; // Adjust path as per your folder structure
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/login/login.js";
+import Dashboard from "./pages/dashboard/dashboard.js";
 
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-      </Switch>
+      <Routes>
+        {/* Default route for Login */}
+        <Route path="/" element={<Login />} />
+        {/* Route for Dashboard */}
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </Router>
   );
 };

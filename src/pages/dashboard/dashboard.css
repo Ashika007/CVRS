@@ -30,6 +30,7 @@
   background: none;
   cursor: pointer;
   font-size: 16px;
+  color:#333
 }
 
 .sidebar-menu li button.active {
